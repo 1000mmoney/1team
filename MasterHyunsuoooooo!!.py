@@ -1,3 +1,6 @@
+import pandas as pd
+
+# 산업안전보건관리비 계산기
 def calculate_industrial_safety_health_management_cost(material_cost, supplied_material_cost, direct_labor_cost,
                                                        construction_type):
     # 총 비용 계산
@@ -68,6 +71,8 @@ def calculate_industrial_safety_health_management_cost(material_cost, supplied_m
     return safety_health_management_cost
 
 
+values = []
+
 # 프로그램 루프 시작
 while True:
     print("\n건설공사 유형을 선택하세요: 일반건설공사(갑), 일반건설공사(을), 중건설공사, 철도-궤도신설공사, 특수및기타건설공사, end")
@@ -89,7 +94,18 @@ while True:
 
         print(f"산업안전보건관리비: {safety_health_management_cost:.2f} 원 입니다.")
 
+    # 결과값 excel 저장 코드
+        columns = ["공사종류", "재료비", "관급재료비", "직접노무비", "산업안전보건관리비"]
+        values.append([construction_type, material_cost, supplied_material_cost, direct_labor_cost,
+                   safety_health_management_cost])
+        df = pd.DataFrame(values, columns=columns)
+        print(df)
+        df.to_excel("./result2.xlsx")
+
     except ValueError as e:
         print(e)
     except Exception as e:
         print(f"오류가 발생했습니다: {e}")
+
+
+
